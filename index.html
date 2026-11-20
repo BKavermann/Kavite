@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#04060c">
+<title>Kavite</title>
+<link rel="stylesheet" href="./fonts/fonts.css">
+</head>
+<body data-mode="menu">
+<!--APP-->
+<div id="stage"></div>
+<div id="touch" class="controls"></div>
+
+<div class="hud flight-ui" id="hudL">
+  <div class="label">Credits</div>
+  <div id="credits" class="big">0 Cr</div>
+  <div class="row"><span class="label">Schild</span><div class="bar big" id="shieldBar"><i></i><span class="num" id="shieldNum">100 %</span></div></div>
+  <div class="row"><span class="label">Hülle</span><div class="bar big hull" id="hullBar"><i></i><span class="num" id="hullNum">100 %</span></div></div>
+  <div class="row"><span class="label">Schub</span><div class="bar" id="speedBar"><i></i></div></div>
+  <div class="row"><span class="label">Hitze</span><div class="bar heat" id="heatBar"><i></i></div></div>
+  <div class="row" id="tempRow" hidden><span class="label">Temp.</span><div class="bar heat" id="tempBar"><i></i></div></div>
+  <div class="row"><span class="label">Fracht</span><span class="val" id="cargo">0/20 t</span></div>
+  <div class="row"><span class="label">Treibst.</span><span class="val" id="fuel">7,0 LJ</span></div>
+  <div class="row"><span class="label">Munition</span><span class="val" id="ammo">300</span></div>
+  <div class="row law" id="lawRow" hidden><span class="label">Status</span><span class="val" id="law"></span></div>
+</div>
+<div class="hud flight-ui" id="hudR">
+  <div class="btn-row">
+    <button id="cruiseBtn" class="chip strong" type="button">Reise</button>
+    <button id="mapBtn" class="chip strong" type="button">Karte</button>
+    <button id="pauseBtn" class="chip" type="button" aria-label="Pause">II</button>
+  </div>
+  <button id="navBtn" class="chip nav" type="button">Ziel</button>
+  <div class="btn-row">
+    <button id="weaponBtn" class="chip strong weapon" type="button">Laser</button>
+    <button id="rearBtn" class="chip strong" type="button" aria-pressed="false" title="Blick nach hinten (G)">Heck</button>
+    <button id="alignBtn" class="chip strong" type="button" hidden>Ausrichten</button>
+  </div>
+  <button id="hyperBtn" class="chip hyper" type="button" hidden>Sprung</button>
+  <div class="label foes" id="foes"></div>
+</div>
+
+<svg id="cross" class="flight-ui" viewBox="0 0 44 44" aria-hidden="true">
+  <g fill="none" stroke="#7fe0c4" stroke-width="1.5">
+    <path d="M22 4v10M22 30v10M4 22h10M30 22h10"/>
+    <circle cx="22" cy="22" r="2" fill="#7fe0c4" stroke="none"/>
+  </g>
+</svg>
+<canvas id="radar" class="flight-ui" aria-label="Scanner"></canvas>
+<div id="marks" class="flight-ui"></div>
+<div id="enemyArrow" class="arrow flight-ui" hidden></div>
+<div id="navArrow" class="arrow nav flight-ui" hidden></div>
+
+<div class="stick idle controls" id="stickL"><div class="knob"></div><div class="tag">LENKEN</div></div>
+<div class="stick idle controls" id="stickR"><div class="knob"></div><div class="tag">SCHUB · ROLLE</div></div>
+<button id="fire" class="controls" type="button">FEUER</button>
+<button id="dockBtn" class="flight-ui" type="button" hidden>ANDOCKEN</button>
+<button id="ejectBtn" class="chip strong eject flight-ui" type="button" hidden>Aussteigen</button>
+<div id="toast" class="flight-ui" aria-live="polite"></div>
+<div id="comms" class="flight-ui" aria-live="polite"><b></b><p></p></div>
+
+<canvas id="warp" hidden></canvas>
+<div id="flash"></div>
+<div id="banner"></div>
+<div id="station" hidden></div>
+<div id="galaxy" hidden></div>
+<div id="menu" hidden></div>
+<div id="settings" hidden></div>
+<div id="howto" hidden></div>
+<div id="about" hidden></div>
+<div id="tips" hidden></div>
+<div id="intro" hidden></div>
+<div id="loading">Lade Schiffsmodelle …</div>
+<!--/APP-->
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "license": "GPL-3.0-or-later",
+  "name": "asteroid-drift",
+  "private": true,
+  "version": "0.3.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview --host",
+    "models": "python3 tools/make_models.py"
+  },
+  "dependencies": {
+    "three": "0.170.0"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  }
+}
