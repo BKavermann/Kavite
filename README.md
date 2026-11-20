@@ -2,6 +2,10 @@
 
 3D-Weltraumspiel für Smartphone und Browser: hundert Sternsysteme mit je bis zu fünf Raumstationen, Reise- und Hyperantrieb, Bergbau, Handel und Piraten. Gebaut mit Three.js r170 und Vite.
 
+## Android-App herunterladen
+
+Die fertige App liegt im Ordner [`apk/`](apk/): [kavite-0.85.apk](apk/kavite-0.85.apk) öffnen, „Download raw“ antippen und die Datei auf dem Handy installieren (dafür die Installation aus unbekannten Quellen erlauben).
+
 ## Starten
 
 ```bash
