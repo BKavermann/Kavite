@@ -2,7 +2,7 @@
 
 // Version shown in the settings. tools/build_apk.sh writes it into the Android manifest
 // (versionName 0.40, versionCode 40), so raise it for every release.
-export const VERSION = '0.85';
+export const VERSION = '0.86';
 export const COPYRIGHT = '© 2026 Björn Kavermann';
 // Impressum in "Über Kavite" (Björn's details, § 5 DDG)
 export const IMPRINT = { name: 'Björn Kavermann', street: 'Burgwedel 44b', city: '22457 Hamburg', country: 'Deutschland', email: 'b@kavs.de' };
@@ -161,6 +161,8 @@ export const UPGRADES = [
   { id: 'missile', name: 'Raketenwerfer', desc: 'Aufgeschaltete Piraten werden verfolgt und zerstört (6 Raketen)', price: 2200, max: 1, sold: ['industrie'] },
   { id: 'rear', name: 'Hecklaser', desc: 'Zwillingslaser im Heck gegen Verfolger: im Blick nach hinten (Knopf „Heck“, Taste G) feuerst du damit (Laser-Munition)', price: 1400, max: 1, sold: ['industrie', 'bergbau', 'hightech'] },
   { id: 'hold', name: 'Schmuggelfach', desc: 'Abgeschirmtes Fach im Frachtraum: Zollscans finden Schmuggelware meist nicht', price: 1800, max: 1, sold: ['industrie', 'bergbau', 'hightech'], lawless: true },
+  // Björn: cargo insurance; when the ship is lost (ejected or insurance case) the legal cargo is replaced
+  { id: 'cargoins', name: 'Warenversicherung', desc: 'Geht dein Schiff verloren, ersetzt die Versicherung deine Ladung. Nicht versichert: Waffen, Narkotika und Auftragsfracht', price: 1200, max: 1, policy: true },
   { id: 'scoop', name: 'Treibstoffsammler', desc: 'Schöpft dicht an einer Sonne Treibstoff für den Hyperantrieb', price: 1500, max: 1, sold: ['industrie', 'bergbau', 'hightech'] },
   { id: 'aim', name: 'Zielcomputer', desc: 'Richtet das Schiff auf das markierte Ziel aus', price: 900, max: 1, sold: ['industrie', 'hightech'] },
 ];

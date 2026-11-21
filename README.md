@@ -4,7 +4,7 @@
 
 ## Android-App herunterladen
 
-Die fertige App liegt im Ordner [`apk/`](apk/): [kavite-0.85.apk](apk/kavite-0.85.apk) öffnen, „Download raw“ antippen und die Datei auf dem Handy installieren (dafür die Installation aus unbekannten Quellen erlauben).
+Die fertige App liegt im Ordner [`apk/`](apk/): [kavite-0.86.apk](apk/kavite-0.86.apk) öffnen, „Download raw“ antippen und die Datei auf dem Handy installieren (dafür die Installation aus unbekannten Quellen erlauben).
 
 ## Starten
 
@@ -154,6 +154,7 @@ Fehlt eine Datei oder ist sie defekt, nimmt das Spiel ein eingebautes Ersatzmode
 - **Spielinfos als eigene Seite (v0.82/0.83, Björns Wunsch):** Hauptmenü und Pause zeigen die Infos nicht mehr direkt, sondern über den Knopf „Spielinfos“ an erster Stelle (bis 0.82 „Spieltipps“) (`ui/tips.js`, Overlay `#tips`, Esc/Zurück schließt). Der Text steht weiter in `HELP` in `ui/menu.js`, das Intro nutzt ihn auch.
 - **Abzeichen ohne Flügel (v0.84, Björns Wunsch):** Statt Flügeln und Lorbeer tragen die Abzeichen jetzt Motive aus dem All: ab Commander einen Planetenring mit Rillen um das Schild (hinterer Teil hinter, vorderer vor dem Schild), Flaggoffiziere zusätzlich einen Sonnenkranz aus facettierten Metallstrahlen.
 - **Spielstand-Editor mit Auswahllisten (v0.85, Björns Wunsch):** Im Cheat-Modus (`ui/cheat.js`) sind Ausbauten (nein/ja, Stufe oder Hyperantrieb-Klasse), Hülle (in Prozentstufen), gewählte Waffe und der Stand der Geschichte (Kapitel und Schritt, `STEPS` aus `game/story.js`) jetzt Auswahllisten. Zahlenfelder bleiben für Credits, Punkte, Treibstoff, Munition, Abschüsse und Fracht.
+- **Runde Eingänge und Warenversicherung (v0.86, Björns Wünsche):** Der Andockschlitz aller Stationen ist elliptisch statt eckig: Öffnung im Stationsgesicht (`slotFace`), Tunnel als elliptische Röhre, Lichtringe und Randbeleuchtung als Ellipsenringe (`ellipseRing` in `world/station.js`), Andock- und Kollisionsprüfung mit `inSlotMouth`. In der Werft (Reiter Ausrüstung) gibt es die Warenversicherung (`cargoins`, 1200 Cr, einmalig): Geht das Schiff im Versicherungsfall verloren (Aussteigen oder Spielende aus), bleibt die Ladung erhalten, außer Waffen, Narkotika und Auftragsfracht. Beim Spielende hilft sie nicht.
 - **Impressum (v0.74, Björns Angaben):** in „Über Kavite“ unter den Lizenzen, Angaben gemäß § 5 DDG; Name, Anschrift und E-Mail stehen in `IMPRINT` in config.js.
 - **Einstellungen mit Reitern (v0.73, Björn fand „Erweitert“ schwer zu finden):** Unter der Kopfzeile stehen zwei Reiter, „Allgemein“ (Spiel, Ton, Steuerung, Anzeige, Spielstand) und „Erweitert“ (Wirtschaft, Piraten, Schäden und Spielende), statt der früheren Klappzeile am Ende.
 - **Anzahl der Piraten (v0.71, Björns Wunsch):** Einstellungen › Erweitert › Piraten (seit 0.72 dort, Björns Wunsch), fünf Stufen Kaum, Wenig, Normal, Viele, Massen (`settings.pirateAmount`, Werte in `PIRATE_AMOUNT` in config.js). Sie wirkt zusätzlich zum Schwierigkeitsgrad auf die Häufigkeit der Überfälle, die Höchstzahl gleichzeitiger Piraten und die Größe der Gruppen. Gegner aus Aufträgen und der Geschichte sind davon unabhängig.

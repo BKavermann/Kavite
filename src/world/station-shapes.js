@@ -24,13 +24,13 @@ function scaleUV(geo, su, sv) {
   return geo;
 }
 
-// Flat face at z = S with the slot cut out; outline is a circle radius or a list of xy points
+// Flat face at z = S with the (elliptical) slot cut out; outline is a circle radius or a list of xy points
 function slotFace(outline) {
   const shape = new THREE.Shape();
   if (typeof outline === 'number') shape.absarc(0, 0, outline, 0, Math.PI * 2, false);
   else outline.forEach((p, i) => (i ? shape.lineTo(p.x, p.y) : shape.moveTo(p.x, p.y)));
-  const w = SLOT_W / 2, h = SLOT_H / 2;
-  shape.holes.push(new THREE.Path().moveTo(-w, -h).lineTo(-w, h).lineTo(w, h).lineTo(w, -h).lineTo(-w, -h));
+  // Björn: an elliptical mouth instead of a rectangular one
+  shape.holes.push(new THREE.Path().absellipse(0, 0, SLOT_W / 2, SLOT_H / 2, 0, Math.PI * 2, true));
   const face = new THREE.ShapeGeometry(shape, 48).translate(0, 0, S);
   const uv = face.getAttribute('uv');
   for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) / (S * 0.8), uv.getY(i) / (S * 0.8));

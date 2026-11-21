@@ -8,7 +8,7 @@ export function newProfile() {
     v: 2,
     credits: rules().startCredits ?? START_CREDITS,
     cargo: {},
-    upgrades: { hyper: 0, dock: 0, cargo: 0, magazine: 0, shield: 0, laser: 0, rail: 0, missile: 0, aim: 0, hold: 0, scoop: 0 },
+    upgrades: { hyper: 0, dock: 0, cargo: 0, magazine: 0, shield: 0, laser: 0, rail: 0, missile: 0, aim: 0, hold: 0, scoop: 0, cargoins: 0 },
     system: 0,
     station: 0,
     kills: 0,

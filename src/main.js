@@ -101,12 +101,16 @@ G.events = {
       setTimeout(() => showGameOver(p, lost), 1800);
       return;
     }
-    const lost = cargoUsed(p);
+    // Cargo insurance (Björn): legal goods come back with the new ship; contraband and job cargo do not
+    const kept = {};
+    if (p.upgrades.cargoins) for (const [id, t] of Object.entries(p.cargo)) if (t > 0 && id !== 'weapons' && id !== 'narcotics') kept[id] = t;
+    const replaced = Object.values(kept).reduce((a, b) => a + b, 0);
+    const lost = cargoUsed(p) - replaced;
     const fee = Math.min(p.credits, INSURANCE);
     missionsOnDeath();
     storyOnDeath();
     setTimeout(() => {
-      p.cargo = {};
+      p.cargo = kept;
       p.credits -= fee;
       p.hull = 1;                 // the insurance ship comes without damage
       p.fuel = hyperRange(p);
@@ -114,7 +118,7 @@ G.events = {
       if (p.upgrades.rail) p.slugs = Math.max(p.slugs, RAIL.magazine);
       if (p.upgrades.missile) p.missiles = Math.max(p.missiles, MISSILE.rack);
       saveProfile(p);
-      showDeath(lost, fee, ejected);
+      showDeath(lost, fee, ejected, replaced);
     }, 1800);
   },
   respawn() {

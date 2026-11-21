@@ -19,6 +19,14 @@ import { S as SIZE, SLOT_W as SW, SLOT_H as SH, SHAPES, buildHull } from './stat
 export const STATION_SIZE = SIZE;    // the slot face sits at z = S
 export const SLOT_W = SW;
 export const SLOT_H = SH;
+// Flat elliptical ring (a, b outer semi-axes, w width), facing +z, two-sided for the light rings
+function ellipseRing(a, b, w) {
+  const s = new THREE.Shape().absellipse(0, 0, a, b, 0, Math.PI * 2);
+  s.holes.push(new THREE.Path().absellipse(0, 0, a - w, b - w, 0, Math.PI * 2, true));
+  return new THREE.ShapeGeometry(s, 64);
+}
+// Inside the elliptical slot mouth (x, y in the slot plane), with a margin in metres
+export const inSlotMouth = (x, y, mx = 0, my = 0) => (x / (SLOT_W / 2 + mx)) ** 2 + (y / (SLOT_H / 2 + my)) ** 2 < 1;
 const SPIN = 0.14;
 const TUNNEL = 30;
 const Y = new THREE.Vector3(0, 1, 0);
@@ -100,6 +108,11 @@ function ensureShared() {
       metalness: 0.5, roughness: 0.5, side: THREE.DoubleSide }),
     collar: new THREE.TorusGeometry(1, 1, 8, 32),
     box: new THREE.BoxGeometry(1, 1, 1),
+    // elliptical slot parts: tunnel tube (unit radius, unit length along z), rings and the end plate
+    tube: new THREE.CylinderGeometry(1, 1, 1, 48, 1, true).rotateX(Math.PI / 2),
+    innerRing: ellipseRing(SLOT_W / 2 - 0.05, SLOT_H / 2 - 0.05, 0.3),
+    rimRing: ellipseRing(SLOT_W / 2 + 0.5, SLOT_H / 2 + 0.5, 0.5),
+    slotDisc: new THREE.ShapeGeometry(new THREE.Shape().absellipse(0, 0, SLOT_W / 2 - 0.1, SLOT_H / 2 - 0.1, 0, Math.PI * 2), 48),
     cyl: new THREE.CylinderGeometry(1, 1, 1, 12),
     trimMat: m({ color: 0x3a4048, metalness: 0.7, roughness: 0.4 }),
     darkMat: m({ color: 0x23282f, metalness: 0.6, roughness: 0.5 }),
@@ -312,38 +325,30 @@ function buildStation(def, index) {
   topLight.scale.setScalar(3);
   mast.add(topLight);
 
-  // Docking tunnel behind the slot, with light frames
-  const tunnel = new THREE.Mesh(sh.box, sh.tunnelMat);
+  // Docking tunnel behind the slot, elliptical like the mouth, with light rings
+  const tunnel = new THREE.Mesh(sh.tube, sh.tunnelMat);
   tunnel.position.z = S - TUNNEL / 2;
-  tunnel.scale.set(SLOT_W, SLOT_H, TUNNEL);
+  tunnel.scale.set(SLOT_W / 2, SLOT_H / 2, TUNNEL);
   group.add(tunnel);
-  const frameMat = new THREE.MeshBasicMaterial({ color: tint.clone().multiplyScalar(0.8) });
+  const frameMat = new THREE.MeshBasicMaterial({ color: tint.clone().multiplyScalar(0.8), side: THREE.DoubleSide });
   const endMat = new THREE.MeshBasicMaterial({ color: tint.clone().multiplyScalar(0.25) });
   owned.push(frameMat, endMat);
   for (let k = 1; k <= 4; k++) {
     const z = S - k * 6.5;
-    for (const [x, y, w, h] of [[0, SLOT_H / 2 - 0.15, SLOT_W - 0.2, 0.25], [0, -SLOT_H / 2 + 0.15, SLOT_W - 0.2, 0.25], [SLOT_W / 2 - 0.15, 0, 0.25, SLOT_H - 0.2], [-SLOT_W / 2 + 0.15, 0, 0.25, SLOT_H - 0.2]]) {
-      const f = new THREE.Mesh(sh.box, frameMat);
-      f.position.set(x, y, z);
-      f.scale.set(w, h, 0.3);
-      group.add(f);
-    }
+    const f = new THREE.Mesh(sh.innerRing, frameMat);
+    f.position.z = z;
+    group.add(f);
   }
-  const end = new THREE.Mesh(sh.box, endMat);
+  const end = new THREE.Mesh(sh.slotDisc, endMat);
   end.position.z = S - TUNNEL + 0.4;
-  end.scale.set(SLOT_W - 0.2, SLOT_H - 0.2, 0.2);
   group.add(end);
 
   // Slot rim lights
   const stripMat = new THREE.MeshBasicMaterial({ color: tint, fog: false });
   owned.push(stripMat);
-  const t = 0.45;
-  for (const [x, y, w, h] of [[0, SLOT_H / 2 + t / 2, SLOT_W + 2 * t, t], [0, -SLOT_H / 2 - t / 2, SLOT_W + 2 * t, t], [SLOT_W / 2 + t / 2, 0, t, SLOT_H], [-SLOT_W / 2 - t / 2, 0, t, SLOT_H]]) {
-    const mesh = new THREE.Mesh(sh.box, stripMat);
-    mesh.position.set(x, y, S + 0.15);
-    mesh.scale.set(w, h, 0.3);
-    group.add(mesh);
-  }
+  const rim = new THREE.Mesh(sh.rimRing, stripMat);
+  rim.position.z = S + 0.15;
+  group.add(rim);
 
   const back = new THREE.Group();
   back.position.z = hull.back + S;           // modules were laid out for a back face at z = -S

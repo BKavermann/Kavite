@@ -3,7 +3,7 @@
 import * as THREE from 'three';
 import { G } from '../ctx.js';
 import { STATION_RAM } from '../config.js';
-import { slotDir, stationUp, stationHit, SLOT_W, SLOT_H } from '../world/station.js';
+import { slotDir, stationUp, stationHit, inSlotMouth } from '../world/station.js';
 import { rerollMarket } from './economy.js';
 import { saveProfile, maxShield, marketFor } from './save.js';
 import { missionsOnDocked } from './missions.js';
@@ -30,11 +30,11 @@ export function updateDockingChecks(dt) {
     local.copy(ship.position);
     st.group.worldToLocal(local);
     const S = st.S;
-    const inSlot = local.z > S - 5 && local.z < S + 3 && Math.abs(local.x) < SLOT_W / 2 - 1 && Math.abs(local.y) < SLOT_H / 2 + 0.6;
+    const inSlot = local.z > S - 5 && local.z < S + 3 && inSlotMouth(local.x, local.y, -1, 0.6);
     if (inSlot && dockCd <= 0) { completeDock(st); return; }
 
     // Hull collision (the slot mouth is open): back to the last free spot, knocked outward
-    if (stationHit(st, ship.position, 1.5) && !(local.z > S - 6 && Math.abs(local.x) < SLOT_W / 2 && Math.abs(local.y) < SLOT_H / 2 + 1)) {
+    if (stationHit(st, ship.position, 1.5) && !(local.z > S - 6 && inSlotMouth(local.x, local.y, 0, 1))) {
       const impact = Math.abs(P.speed) + P.knock.length() * 0.3;
       if (safe.distanceTo(ship.position) < 40) ship.position.copy(safe);
       dir.subVectors(ship.position, st.pos).normalize();

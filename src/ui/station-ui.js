@@ -339,7 +339,7 @@ function upgradesHtml(p, pick) {
     ${UPGRADES.filter(pick).sort((a, b) => (soldHere(upgradeSold(b, p.upgrades[b.id] || 0)) && lawOk(b)) - (soldHere(upgradeSold(a, p.upgrades[a.id] || 0)) && lawOk(a))).map(u => {
       const lvl = p.upgrades[u.id] || 0, maxed = lvl >= u.max, price = upgradePrice(u, lvl), sold = upgradeSold(u, lvl), here = soldHere(sold) && lawOk(u);
       const step = u.levels?.[Math.min(lvl, u.max - 1)], name = step?.name || u.name, desc = maxed && u.levels ? `${name} eingebaut` : step?.desc || u.desc;
-      const label = maxed ? (u.max === 1 ? 'Eingebaut' : 'Maximum') : here ? fmt(price) + ' Cr' : 'Nicht hier';
+      const label = maxed ? (u.max === 1 ? (u.policy ? 'Abgeschlossen' : 'Eingebaut') : 'Maximum') : here ? fmt(price) + ' Cr' : 'Nicht hier';
       return `<div class="upgrade${here || maxed ? '' : ' elsewhere'}" data-id="${u.id}">
         <div><b>${maxed && u.levels ? u.name : name}</b><small>${desc} · Stufe ${lvl}/${u.max}${here || maxed ? '' : u.lawless ? ' · erhältlich in gesetzlosen Systemen (Piraten hoch)' : ` · erhältlich auf ${econList(sold)}-Stationen`}</small></div>
         <button type="button" class="buy" data-act="upgrade" ${maxed || !here || p.credits < price ? 'disabled' : ''}>${label}</button>
@@ -662,7 +662,7 @@ function buyUpgrade(id) {
   if (id === 'hyper') p.fuel = hyperRange(p);
   if (id === 'rail') { p.slugs = Math.max(p.slugs || 0, RAIL.magazine); p.weapon = 'rail'; }
   if (id === 'missile') { p.missiles = Math.max(p.missiles || 0, MISSILE.rack); p.weapon = 'missile'; }
-  note = `${u.levels?.[lvl]?.name || u.name} eingebaut`;
+  note = `${u.levels?.[lvl]?.name || u.name} ${u.policy ? 'abgeschlossen' : 'eingebaut'}`;   // a policy is signed, not fitted
   attachPlayerModel();       // the new part shows on the ship
   refreshHangarShip();
   return true;
@@ -672,7 +672,7 @@ function buyUpgrade(id) {
 function upgradeConfirm(id) {
   const p = G.profile, u = UPGRADES.find(x => x.id === id), lvl = p.upgrades[id] || 0, price = upgradePrice(u, lvl);
   const step = u.levels?.[lvl], name = step?.name || u.name;
-  return { title: `${name} einbauen?`, desc: step?.desc || u.desc,
+  return { title: `${name} ${u.policy ? 'abschließen' : 'einbauen'}?`, desc: step?.desc || u.desc,
     rows: [['Preis', `${fmt(price)} Cr`], ['Danach übrig', `${fmt(p.credits - price)} Cr`]], ok: `Kaufen · ${fmt(price)} Cr` };
 }
 function shipConfirm(id) {

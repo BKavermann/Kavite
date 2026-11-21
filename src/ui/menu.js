@@ -51,6 +51,7 @@ export const HELP = `
     <dt>Andocken</dt><dd>Selbst durch den Schlitz fliegen, die Station dreht sich mit. Mit Andockcomputer (Werft, 500 Cr) reicht es, langsam (unter 55) vor den Schlitz zu fliegen, Nase zur Station, dann „ANDOCKEN“ antippen.</dd>
     <dt>Hyperraum</dt><dd>Den Hyperantrieb zuerst in der Werft kaufen (1000 Cr). Dann auf der Sternenkarte ein System als Sprungziel setzen, im Flug „⇢“ antippen. Kostet Treibstoff je Lichtjahr. Klasse 1 springt bis 7 LJ, Klasse 2 (Industrie, Hightech) bis 15 LJ, Klasse 3 (nur Hightech) bis 30 LJ.</dd>
     <dt>Vorräte</dt><dd>Treibstoff und Munition sind begrenzt. In der Werft jeder Station nachkaufen.</dd>
+    <dt>Versicherung</dt><dd>Geht dein Schiff verloren, stellt die Versicherung ein neues bereit (Selbstbeteiligung bis 150 Cr), Ausbauten bleiben. Die Ladung ist dann weg, außer du hast in der Werft (Reiter Ausrüstung) eine Warenversicherung gekauft: Sie ersetzt die Ware, nur Waffen, Narkotika und Auftragsfracht nicht.</dd>
     <dt>Handel</dt><dd>Agrarwelten liefern Nahrung, Industrie Maschinen, Hightech Computer und Luxusgüter, Bergbaukolonien Mineralien. Kleine Felsen geben Erz, Piraten Beute.</dd>
   </dl>`;
 
@@ -128,7 +129,7 @@ export function showPause() {
   el().querySelector('[data-act="resume"]').addEventListener('click', () => G.events.resume?.());
 }
 
-export function showDeath(lostCargo, fee, ejected) {
+export function showDeath(lostCargo, fee, ejected, replaced = 0) {
   const p = G.profile;
   const name = SYSTEMS[p.system].stations[p.station].name;
   el().innerHTML = `
@@ -136,7 +137,8 @@ export function showDeath(lostCargo, fee, ejected) {
     <h1 class="warn">${ejected ? 'AUSGESTIEGEN' : 'SCHIFF ZERSTÖRT'}</h1>
     <p class="sub">${ejected ? 'Du bist rechtzeitig in die Rettungskapsel gestiegen, dein Schiff ist verloren. ' : ''}Die Versicherung stellt ein neues Schiff auf ${name} (System ${SYSTEMS[p.system].name}) bereit, voll getankt und munitioniert. Ausbauten bleiben erhalten.</p>
     <dl class="help">
-      <dt>Ladung verloren</dt><dd>${lostCargo} t</dd>
+      ${replaced ? `<dt>Ladung ersetzt</dt><dd>${replaced} t (Warenversicherung)</dd>` : ''}
+      <dt>Ladung verloren</dt><dd>${lostCargo} t${!replaced && !p.upgrades.cargoins && lostCargo ? ' · eine Warenversicherung gibt es in jeder Werft' : ''}</dd>
       <dt>Selbstbeteiligung</dt><dd>${fmt(fee)} Cr (max. ${INSURANCE} Cr)</dd>
     </dl>
     <div class="menu-btns"><button type="button" class="primary" data-act="respawn">NEUES SCHIFF</button></div>
