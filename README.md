@@ -4,7 +4,7 @@
 
 ## Android-App herunterladen
 
-Die fertige App liegt im Ordner [`apk/`](apk/): [kavite-0.87.apk](apk/kavite-0.87.apk) öffnen, „Download raw“ antippen und die Datei auf dem Handy installieren (dafür die Installation aus unbekannten Quellen erlauben).
+Die fertige App liegt im Ordner [`apk/`](apk/): [kavite-0.88.apk](apk/kavite-0.88.apk) öffnen, „Download raw“ antippen und die Datei auf dem Handy installieren (dafür die Installation aus unbekannten Quellen erlauben).
 
 ## Starten
 
@@ -157,6 +157,7 @@ Fehlt eine Datei oder ist sie defekt, nimmt das Spiel ein eingebautes Ersatzmode
 - **Spielstand-Editor mit Auswahllisten (v0.85, Björns Wunsch):** Im Cheat-Modus (`ui/cheat.js`) sind Ausbauten (nein/ja, Stufe oder Hyperantrieb-Klasse), Hülle (in Prozentstufen), gewählte Waffe und der Stand der Geschichte (Kapitel und Schritt, `STEPS` aus `game/story.js`) jetzt Auswahllisten. Zahlenfelder bleiben für Credits, Punkte, Treibstoff, Munition, Abschüsse und Fracht.
 - **Runde Eingänge und Warenversicherung (v0.86, Björns Wünsche):** Der Andockschlitz aller Stationen ist elliptisch statt eckig: Öffnung im Stationsgesicht (`slotFace`), Tunnel als elliptische Röhre, Lichtringe und Randbeleuchtung als Ellipsenringe (`ellipseRing` in `world/station.js`), Andock- und Kollisionsprüfung mit `inSlotMouth`. In der Werft (Reiter Ausrüstung) gibt es die Warenversicherung (`cargoins`, 1200 Cr, einmalig): Geht das Schiff im Versicherungsfall verloren (Aussteigen oder Spielende aus), bleibt die Ladung erhalten, außer Waffen, Narkotika und Auftragsfracht. Beim Spielende hilft sie nicht.
 - **Controller (v0.87, Björns Wunsch):** Ein PS5- oder Xbox-Controller per Bluetooth wird über die Gamepad-API gelesen (`core/gamepad.js`). Linker Stick lenkt, rechter Stick Schub und Rolle, R2 feuert, die Tasten lösen dieselben Aktionen aus wie die Tastatur. Ist ein Menü oder Fenster offen, wandert eine Markierung mit Steuerkreuz oder Stick über die Knöpfe (zeilenweise), ✕ drückt, ○ ist Esc, ←/→ stellt Regler und Listen. Treffer lassen den Controller kurz vibrieren. Die Touch-Sticks verschwinden, solange der Controller benutzt wird. In der Android-App gehen Controller-Tasten direkt an das Spiel, damit ○ nicht als Zurück-Taste die App schließt.
+- **Controller in der Station (v0.88, Björns Wünsche):** Der rechte Stick dreht im Hangar und in der Werft die Kamera ums Schiff (`padOrbit` in `world/hangar.js`), L2/R2 zoomen. Im Markt kauft oder verkauft ✕ auf + oder − beim Gedrückthalten weiter (nach 0,4 s etwa neunmal pro Sekunde).
 - **Impressum (v0.74, Björns Angaben):** in „Über Kavite“ unter den Lizenzen, Angaben gemäß § 5 DDG; Name, Anschrift und E-Mail stehen in `IMPRINT` in config.js.
 - **Einstellungen mit Reitern (v0.73, Björn fand „Erweitert“ schwer zu finden):** Unter der Kopfzeile stehen zwei Reiter, „Allgemein“ (Spiel, Ton, Steuerung, Anzeige, Spielstand) und „Erweitert“ (Wirtschaft, Piraten, Schäden und Spielende), statt der früheren Klappzeile am Ende.
 - **Anzahl der Piraten (v0.71, Björns Wunsch):** Einstellungen › Erweitert › Piraten (seit 0.72 dort, Björns Wunsch), fünf Stufen Kaum, Wenig, Normal, Viele, Massen (`settings.pirateAmount`, Werte in `PIRATE_AMOUNT` in config.js). Sie wirkt zusätzlich zum Schwierigkeitsgrad auf die Häufigkeit der Überfälle, die Höchstzahl gleichzeitiger Piraten und die Größe der Gruppen. Gegner aus Aufträgen und der Geschichte sind davon unabhängig.
@@ -198,7 +199,7 @@ Danach folgt ein Epilog je nach Wahl. Die Texte stehen in der Bar (Kasten oben, 
 
 ## Controller
 
-Linker Stick lenken · rechter Stick Schub (hoch/runter) und Rolle (links/rechts) · R2 feuern · ✕ andocken · ○ Navigationsziel · □ Waffe · △ Heck · L1 Ziel vor dem Bug · R1 Reiseantrieb · L2 Ausrichten · Steuerkreuz ↑ Hypersprung, ↓ Aussteigen, ←/→ Ansicht · Create oder Touchpad Sternenkarte · Options Pause. In Menüs: Steuerkreuz wählt, ✕ drückt, ○ zurück. Xbox: A, B, X, Y entsprechen ✕, ○, □, △.
+Linker Stick lenken · rechter Stick Schub (hoch/runter) und Rolle (links/rechts) · R2 feuern · ✕ andocken · ○ Navigationsziel · □ Waffe · △ Heck · L1 Ziel vor dem Bug · R1 Reiseantrieb · L2 Ausrichten · Steuerkreuz ↑ Hypersprung, ↓ Aussteigen, ←/→ Ansicht · Create oder Touchpad Sternenkarte · Options Pause. In Menüs: Steuerkreuz wählt, ✕ drückt, ○ zurück. In der Station: rechter Stick dreht die Ansicht ums Schiff, L2/R2 zoomen, ✕ auf + oder − gedrückt halten wiederholt. Xbox: A, B, X, Y entsprechen ✕, ○, □, △.
 
 ## Tastatur
 

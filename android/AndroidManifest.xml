@@ -2,8 +2,8 @@
 <!-- Kavite as an Android app: one full-screen WebView that runs the game from the APK's assets. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.kavs.kavite"
-    android:versionCode="87"
-    android:versionName="0.87">
+    android:versionCode="88"
+    android:versionName="0.88">
   <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="34" />
   <uses-feature android:glEsVersion="0x00020000" android:required="true" />
   <uses-permission android:name="android.permission.INTERNET" />

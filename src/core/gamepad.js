@@ -5,6 +5,7 @@
 import { G } from '../ctx.js';
 import { emitAction } from './input.js';
 import { toast } from '../ui/hud.js';
+import { padOrbit } from '../world/hangar.js';
 
 export const pad = { lx: 0, ly: 0, rx: 0, ry: 0, fire: false };
 
@@ -16,7 +17,7 @@ const FOCUSABLE = 'button, select, input, a[href], summary, [tabindex]:not([tabi
 const DZ = 0.15;
 
 let prev = [], padIndex = -1, focus = null, lastRoot = null;
-let held = null, heldT = 0;
+let held = null, heldT = 0, crossT = 0, lastPoll = 0;
 
 function deadzone(x, y) {
   const m = Math.hypot(x, y);
@@ -124,13 +125,18 @@ function menuInput(root, gp, down) {
 
   if (down(0)) {
     if (!focus || !focus.isConnected) move(root, 0, 0);
-    else press(focus);
+    else { press(focus); crossT = now + 400; }
+  } else if (gp.buttons[0]?.pressed && focus?.matches('.qty') && !focus.disabled && now >= crossT) {
+    press(focus);   // holding ✕ on + or − in the market keeps buying or selling
+    crossT = now + 110;
   }
   if (down(1) || down(9)) key('Escape');   // back, like Esc on the keyboard
   if (down(8) || down(17)) emitAction('map');
 }
 
 export function pollGamepad() {
+  const t = performance.now(), dt = Math.min(0.05, (t - (lastPoll || t)) / 1000);
+  lastPoll = t;
   const list = navigator.getGamepads ? navigator.getGamepads() : [];
   let gp = list[padIndex];
   if (!gp || !gp.connected) { gp = null; for (const g of list) if (g && g.connected) { gp = g; padIndex = g.index; break; } }
@@ -147,6 +153,8 @@ export function pollGamepad() {
   if (root) {
     pad.lx = pad.ly = pad.rx = pad.ry = 0; pad.fire = false;
     menuInput(root, gp, down);
+    // In the station the right stick turns the view round the ship, L2/R2 zoom
+    if (root.id === 'station') padOrbit(rx, ry, (gp.buttons[6]?.value || 0) - (gp.buttons[7]?.value || 0), dt);
   } else {
     if (focus) setFocus(null);
     lastRoot = null;

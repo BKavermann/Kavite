@@ -10,7 +10,7 @@ let pausedByHelp = false, onClose = null;
 // Numbered spots on the sketch: [number, left %, top %]
 const SPOTS = [[1, 14, 74], [2, 86, 74], [3, 77, 36], [4, 57, 36], [5, 64, 8], [6, 67, 20], [7, 79, 30], [8, 32, 86], [9, 36, 62], [10, 24, 8]];
 
-export const PAD_HELP = 'Per Bluetooth mit dem Handy oder Rechner koppeln (PS5-Controller: PS und Create gedrückt halten, bis das Licht blinkt), dann im Spiel eine Taste drücken. Linker Stick lenkt · rechter Stick hoch/runter Schub, links/rechts rollen · R2 feuert · ✕ andocken · ○ Navigationsziel · □ Waffe · △ Heck · L1 Ziel vor dem Bug · R1 Reiseantrieb · L2 Ausrichten · Steuerkreuz ↑ Hypersprung, ↓ Aussteigen, ←/→ Ansicht · Create oder Touchpad Karte · Options Pause. In Menüs wählt das Steuerkreuz, ✕ drückt, ○ geht zurück, ←/→ stellt Regler und Listen. Xbox: A, B, X, Y wie ✕, ○, □, △.';
+export const PAD_HELP = 'Per Bluetooth mit dem Handy oder Rechner koppeln (PS5-Controller: PS und Create gedrückt halten, bis das Licht blinkt), dann im Spiel eine Taste drücken. Linker Stick lenkt · rechter Stick hoch/runter Schub, links/rechts rollen · R2 feuert · ✕ andocken · ○ Navigationsziel · □ Waffe · △ Heck · L1 Ziel vor dem Bug · R1 Reiseantrieb · L2 Ausrichten · Steuerkreuz ↑ Hypersprung, ↓ Aussteigen, ←/→ Ansicht · Create oder Touchpad Karte · Options Pause. In Menüs wählt das Steuerkreuz, ✕ drückt, ○ geht zurück, ←/→ stellt Regler und Listen. In der Station dreht der rechte Stick die Ansicht ums Schiff, L2/R2 zoomen; ✕ auf + oder − im Markt gedrückt halten kauft oder verkauft weiter. Xbox: A, B, X, Y wie ✕, ○, □, △.';
 
 export const ITEMS = [
   ['Lenken', 'Daumen irgendwo auf die linke Hälfte setzen und ziehen: Die Nase folgt (hoch, runter, links, rechts). Der Stick erscheint dort, wo der Daumen landet.'],

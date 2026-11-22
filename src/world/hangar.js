@@ -508,6 +508,15 @@ function grabHub() {
   Object.assign(orbit, { yaw: Math.atan2(rel.x, rel.z), pitch: Math.min(1.25, Math.max(0.04, Math.asin(rel.y / d))), dist: Math.min(maxDist(), d), idle: 0 });
   hubOrbit = true;
 }
+// Game controller: right stick turns the view round the ship, the triggers zoom (shipyard and overview)
+export function padOrbit(x, y, zoom, dt) {
+  if (!active || !H || (focus && focus !== 'yard') || (!x && !y && !zoom)) return;
+  grabHub();
+  orbit.yaw -= x * 2.2 * dt;
+  orbit.pitch = Math.min(1.25, Math.max(0.04, orbit.pitch + y * 1.4 * dt));
+  if (zoom) orbit.dist = Math.min(maxDist(), Math.max(8, orbit.dist * (1 + zoom * 1.2 * dt)));
+  orbit.idle = 0;
+}
 function bindOrbit(canvas) {
   const on = () => active && (focus === 'yard' || !focus);
   canvas.addEventListener('pointerdown', e => {

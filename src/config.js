@@ -2,7 +2,7 @@
 
 // Version shown in the settings. tools/build_apk.sh writes it into the Android manifest
 // (versionName 0.40, versionCode 40), so raise it for every release.
-export const VERSION = '0.87';
+export const VERSION = '0.88';
 export const COPYRIGHT = '© 2026 Björn Kavermann';
 // Impressum in "Über Kavite" (Björn's details, § 5 DDG)
 export const IMPRINT = { name: 'Björn Kavermann', street: 'Burgwedel 44b', city: '22457 Hamburg', country: 'Deutschland', email: 'b@kavs.de' };
