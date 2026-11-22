@@ -4,6 +4,7 @@ import { G } from './ctx.js';
 import { INSURANCE, HYPER, CRUISE, RAIL, MISSILE } from './config.js';
 import { initRenderer, resizeRenderer, render, setGlowStrength } from './core/renderer.js';
 import { initInput, readInput, onAction, resetSticks, placeIdleSticks } from './core/input.js';
+import { initGamepad, pollGamepad } from './core/gamepad.js';
 import { initAudio, setVolume, startHum, stopHum, sfxDeny } from './core/audio.js';
 import { loadModels } from './core/assets.js';
 import { initSky, updateSky } from './world/sky.js';
@@ -189,6 +190,7 @@ let last = performance.now();
 function frame(now) {
   const dt = Math.min(0.05, (now - last) / 1000);
   last = now;
+  pollGamepad();
   if (!G.paused) {
     G.time += dt;
     const inp = readInput();
@@ -238,6 +240,7 @@ async function boot() {
   initAsteroids();
   initPlayer();
   initInput();
+  initGamepad();
   initHud();
   initMarks();
   initRadar();

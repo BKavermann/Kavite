@@ -10,6 +10,8 @@ let pausedByHelp = false, onClose = null;
 // Numbered spots on the sketch: [number, left %, top %]
 const SPOTS = [[1, 14, 74], [2, 86, 74], [3, 77, 36], [4, 57, 36], [5, 64, 8], [6, 67, 20], [7, 79, 30], [8, 32, 86], [9, 36, 62], [10, 24, 8]];
 
+export const PAD_HELP = 'Per Bluetooth mit dem Handy oder Rechner koppeln (PS5-Controller: PS und Create gedrückt halten, bis das Licht blinkt), dann im Spiel eine Taste drücken. Linker Stick lenkt · rechter Stick hoch/runter Schub, links/rechts rollen · R2 feuert · ✕ andocken · ○ Navigationsziel · □ Waffe · △ Heck · L1 Ziel vor dem Bug · R1 Reiseantrieb · L2 Ausrichten · Steuerkreuz ↑ Hypersprung, ↓ Aussteigen, ←/→ Ansicht · Create oder Touchpad Karte · Options Pause. In Menüs wählt das Steuerkreuz, ✕ drückt, ○ geht zurück, ←/→ stellt Regler und Listen. Xbox: A, B, X, Y wie ✕, ○, □, △.';
+
 export const ITEMS = [
   ['Lenken', 'Daumen irgendwo auf die linke Hälfte setzen und ziehen: Die Nase folgt (hoch, runter, links, rechts). Der Stick erscheint dort, wo der Daumen landet.'],
   ['Schub und Rolle', 'Rechte Hälfte: nach oben oder unten ziehen stellt den Schub ein, er bleibt beim Loslassen stehen. Ganz nach unten fliegt das Schiff langsam rückwärts. Nach links oder rechts ziehen rollt das Schiff.'],
@@ -57,6 +59,9 @@ function html(first) {
       <dt>Sternenkarte</dt><dd>System antippen, dann „Als Sprungziel setzen“. Zwei Finger zoomen, ziehen verschiebt.</dd>
       <dt>Zurück-Taste</dt><dd>In der Android-App wirkt sie wie Pause oder Zurück.</dd>
     </dl>
+    <details class="ht-keys"><summary>Controller (PS5, Xbox)</summary>
+      <p class="note">${PAD_HELP}</p>
+    </details>
     <details class="ht-keys"><summary>Tastatur am Rechner</summary>
       <p class="note">WASD lenken · Q/E rollen · ↑/↓ Schub · Leertaste feuern · F andocken · J Reiseantrieb · M Karte · H Hypersprung · V Ansicht · T Navigationsziel · R Waffe · X Ziel vor dem Bug · C Ausrichten · Esc Pause</p>
     </details>

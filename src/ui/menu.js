@@ -52,6 +52,7 @@ export const HELP = `
     <dt>Hyperraum</dt><dd>Den Hyperantrieb zuerst in der Werft kaufen (1000 Cr). Dann auf der Sternenkarte ein System als Sprungziel setzen, im Flug „⇢“ antippen. Kostet Treibstoff je Lichtjahr. Klasse 1 springt bis 7 LJ, Klasse 2 (Industrie, Hightech) bis 15 LJ, Klasse 3 (nur Hightech) bis 30 LJ.</dd>
     <dt>Vorräte</dt><dd>Treibstoff und Munition sind begrenzt. In der Werft jeder Station nachkaufen.</dd>
     <dt>Versicherung</dt><dd>Geht dein Schiff verloren, stellt die Versicherung ein neues bereit (Selbstbeteiligung bis 150 Cr), Ausbauten bleiben. Die Ladung ist dann weg, außer du hast in der Werft (Reiter Ausrüstung) eine Warenversicherung gekauft: Sie ersetzt die Ware, nur Waffen, Narkotika und Auftragsfracht nicht.</dd>
+    <dt>Controller</dt><dd>Ein PS5- oder Xbox-Controller lässt sich per Bluetooth koppeln: linker Stick lenkt, rechter Stick Schub und Rolle, R2 feuert, Options pausiert. Die ganze Belegung steht unter Steuerung › Controller. Sobald du den Controller benutzt, verschwinden die Touch-Sticks; ein Tippen auf den Bildschirm holt sie zurück.</dd>
     <dt>Handel</dt><dd>Agrarwelten liefern Nahrung, Industrie Maschinen, Hightech Computer und Luxusgüter, Bergbaukolonien Mineralien. Kleine Felsen geben Erz, Piraten Beute.</dd>
   </dl>`;
 

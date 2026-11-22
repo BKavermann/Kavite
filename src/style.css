@@ -693,3 +693,9 @@ body.rear-view:not([data-mode="flight"])::before { display: none; }
 /* save editor drop-downs (v0.85) */
 .ch-f select option { background: #0b0f1a; color: var(--ink); }
 .ch-grid.ch-wide { grid-template-columns: 1fr; }
+
+/* Game controller: highlight of the selected control, touch sticks hidden while the pad is in use */
+.pad-focus { outline: 2px solid var(--warn) !important; outline-offset: 2px; box-shadow: 0 0 0 5px rgba(255, 179, 71, .22); }
+.map .sys.pad-focus { outline: none !important; box-shadow: none; }
+.map .sys.pad-focus .hit { stroke: var(--warn); stroke-width: .3; }
+body.pad .stick, body.pad #fire { display: none; }

@@ -1,5 +1,6 @@
 // Two floating virtual sticks, a fire button and keyboard controls.
 import { G } from '../ctx.js';
+import { pad } from './gamepad.js';
 
 const keys = {};
 const handlers = {};
@@ -10,7 +11,7 @@ const sticks = {};
 let fireHeld = false;
 
 export function onAction(name, fn) { (handlers[name] ||= []).push(fn); }
-function emitAction(name, ...args) { (handlers[name] || []).forEach(fn => fn(...args)); }
+export function emitAction(name, ...args) { (handlers[name] || []).forEach(fn => fn(...args)); }
 
 const active = () => G.mode === 'flight' && !G.paused;
 const curve = v => v * (0.35 + 0.65 * Math.abs(v));   // finer control near the centre
@@ -103,10 +104,10 @@ export function readInput() {
   if (!active()) { out.pitch = out.yaw = out.roll = out.throttle = 0; out.fire = false; return out; }
   const inv = G.settings.invertY, k = G.settings.sensitivity ?? 1;
   const kb = (a, b) => (keys[a] ? 1 : 0) - (keys[b] ? 1 : 0);
-  out.pitch = c1(k * curve(sticks.L.y) * (inv ? 1 : -1) + kb('KeyW', 'KeyS') * (inv ? -1 : 1));
-  out.yaw = c1(-k * curve(sticks.L.x) + kb('KeyA', 'KeyD'));
-  out.roll = c1(-k * curve(sticks.R.x) + kb('KeyQ', 'KeyE'));
-  out.throttle = c1(-sticks.R.y + (keys.ArrowUp || keys.ShiftLeft ? 1 : 0) - (keys.ArrowDown || keys.ControlLeft ? 1 : 0));
-  out.fire = fireHeld || !!keys.Space;
+  out.pitch = c1(k * curve(sticks.L.y + pad.ly) * (inv ? 1 : -1) + kb('KeyW', 'KeyS') * (inv ? -1 : 1));
+  out.yaw = c1(-k * curve(sticks.L.x + pad.lx) + kb('KeyA', 'KeyD'));
+  out.roll = c1(-k * curve(sticks.R.x + pad.rx) + kb('KeyQ', 'KeyE'));
+  out.throttle = c1(-sticks.R.y - pad.ry + (keys.ArrowUp || keys.ShiftLeft ? 1 : 0) - (keys.ArrowDown || keys.ControlLeft ? 1 : 0));
+  out.fire = fireHeld || pad.fire || !!keys.Space;
   return out;
 }

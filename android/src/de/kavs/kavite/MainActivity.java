@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.ValueCallback;
@@ -134,6 +135,14 @@ public class MainActivity extends Activity {
                 else web.evaluateJavascript("dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape', code: 'Escape'}))", null);
             }
         });
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent e) {
+        // Controller buttons belong to the game (Gamepad API). Left alone, Android would turn
+        // Circle/B into the back key and leave the app from the main menu.
+        if (KeyEvent.isGamepadButton(e.getKeyCode())) { web.dispatchKeyEvent(e); return true; }
+        return super.dispatchKeyEvent(e);
     }
 
     @Override

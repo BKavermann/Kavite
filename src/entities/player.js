@@ -15,6 +15,7 @@ import { fireRail, fireMissile, tickWeapons, clearWeapons, shiftWeapons } from '
 import { alignInput } from '../game/targeting.js';
 import { sfxLaser, sfxBoom, sfxDeny, sfxCruise, sfxShieldHit, sfxHullHit, sfxCrash } from '../core/audio.js';
 import { flash, toast, showBanner } from '../ui/hud.js';
+import { rumble } from '../core/gamepad.js';
 import { segDist2, clamp } from '../utils.js';
 import { maxShield, shieldRegen, shipDef } from '../game/save.js';
 import { sunDist } from '../game/sun.js';
@@ -424,6 +425,7 @@ export function hurtPlayer(amount, strong, pierce = 0) {
     P.shield -= amount;
     flash(strong);
     if (navigator.vibrate) try { navigator.vibrate(strong ? 60 : 25); } catch (_) {}
+    rumble(strong ? 0.8 : 0.35, strong ? 220 : 120);
     if (P.shield <= 0) killPlayer();
     return;
   }
@@ -433,6 +435,7 @@ export function hurtPlayer(amount, strong, pierce = 0) {
   P.shield = Math.max(0, shield - amount);
   flash(strong || rest > 0);
   if (navigator.vibrate) try { navigator.vibrate(strong || rest > 0 ? 60 : 25); } catch (_) {}
+  rumble(strong || rest > 0 ? 0.8 : 0.35, strong || rest > 0 ? 220 : 120);
   if (amount >= 9999 || (rest > 0 && hullHit(rest))) killPlayer();
 }
 
